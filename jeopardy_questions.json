@@ -1,0 +1,356 @@
+[
+  {
+    "clue": "The online streaming platorm apologized and take back Gunjan Saxena movie?",
+    "answer": "What is Netflix?",
+    "points": 5,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "____ is the daughter of Virat Kohli?",
+    "answer": "Who is Vamika?",
+    "points": 5,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "___ it is an online platform launched by sonu sood",
+    "answer": "What is Pravasi Rojgar?",
+    "points": 25,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "____Outstanding Drama Series Award won in emmys",
+    "answer": "What is Game of thrones?",
+    "points": 25,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "____ Director of Sacred games",
+    "answer": "Who is Anurag Kashyap?",
+    "points": 50,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "Hemant Shah in Bigbull",
+    "answer": "Who is Abhishek Bachchan?",
+    "points": 50,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "National award winning bollywood choreographer who recently passed away?",
+    "answer": "Who is Saroj Khan?",
+    "points": 75,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "____ first bollywood movie to go plastic free?",
+    "answer": "What is Coolie No. 1?",
+    "points": 75,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "He has won the National award for Paan singh Tomar?",
+    "answer": "Who is Irfan Khan?",
+    "points": 100,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "National Anti doping Agency has selected an actor as a brand ambassador",
+    "answer": "Who is Suniel Shetty?",
+    "points": 100,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "The Sikkim government has nominated a singer as a green Ambassador of the state?",
+    "answer": "Who is Mohit Chauhan?",
+    "points": 100,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "He set a small film city set-up in Bihar village?",
+    "answer": "Who is Pankaj Tripathi?",
+    "points": 100,
+    "tag": "Entertainment"
+  },
+  {
+    "clue": "Government needs to relentlessly pursue extradition against the economic fugitive",
+    "answer": "Who is Nirav Modi?",
+    "points": 5,
+    "tag": "general"
+  },
+  {
+    "clue": "The Indian Prime Minister has gone to take part in the golden jubilee celebrations of independence of a country",
+    "answer": "Where is Bangladesh?",
+    "points": 5,
+    "tag": "general"
+  },
+  {
+    "clue": "____ signed an agreement for Bringing Peace to Afghanistan",
+    "answer": "What is U.S. and Taliban?",
+    "points": 25,
+    "tag": "general"
+  },
+  {
+    "clue": "____ was the first major world leader confirmed to have COVID-19’",
+    "answer": "Who is Boris Johnson?",
+    "points": 25,
+    "tag": "general"
+  },
+  {
+    "clue": "Launched Aahaar kranti?",
+    "answer": "Who is Harsh vardhan?",
+    "points": 50,
+    "tag": "general"
+  },
+  {
+    "clue": "Chairman of CBDT?",
+    "answer": "Who is Pramod Chandra?",
+    "points": 50,
+    "tag": "general"
+  },
+  {
+    "clue": "Publishing company was named as the Champion Publisher of the Year 2020 by WAN IFRA?",
+    "answer": "What is The Hindu?",
+    "points": 75,
+    "tag": "general"
+  },
+  {
+    "clue": "presented the budget of the Delhi Government for the seventh consecutive term?",
+    "answer": "Who is Manish Sisodia?",
+    "points": 75,
+    "tag": "general"
+  },
+  {
+    "clue": "Name of the certification system that allows people who have been vaccinated against Covid 19 to access certain facilities?",
+    "answer": "What is Vaccine Passport?",
+    "points": 100,
+    "tag": "general"
+  },
+  {
+    "clue": "The birth anniversary of which social reformer was celebrated on January 3?",
+    "answer": "Who is Savitribai Phule?",
+    "points": 100,
+    "tag": "general"
+  },
+  {
+    "clue": "This institution has developed an online one-minute game to create awareness about Covid 19?",
+    "answer": "What is IIT Madras?",
+    "points": 100,
+    "tag": "general"
+  },
+  {
+    "clue": "This is the helicopter India is set to buy from United States?",
+    "answer": "What is Sikorsky Romeo?",
+    "points": 100,
+    "tag": "general"
+  },
+  {
+    "clue": "This tech giant sets up Innovation Lab at Delhi Technological University",
+    "answer": "What is Samsung?",
+    "points": 5,
+    "tag": "science"
+  },
+  {
+    "clue": " Starship SN10 prototype rocket tested succesfuly by this rocket company ",
+    "answer": "What is SpaceX?",
+    "points": 5,
+    "tag": "science"
+  },
+  {
+    "clue": "First wood based satellite would be launched by this country by 2023",
+    "answer": "What is Japan?",
+    "points": 25,
+    "tag": "science"
+  },
+  {
+    "clue": "Anti-satellite missile tested by India on 27 March 2019?",
+    "answer": "What is Mission Shakti?",
+    "points": 25,
+    "tag": "science"
+  },
+  {
+    "clue": "This Space agency has discovered the First Nearby Super Earth?",
+    "answer": "What is NASA?",
+    "points": 50,
+    "tag": "science"
+  },
+  {
+    "clue": "Curiosity rover of NASA has sent a stunning video of Earth like clouds passing over this planet",
+    "answer": "Where is Mars?",
+    "points": 50,
+    "tag": "science"
+  },
+  {
+    "clue": "Spacecraft Hope belong to this country?",
+    "answer": "Where is UAE?",
+    "points": 75,
+    "tag": "science"
+  },
+  {
+    "clue": "This organization has created a new record of launching many satellites from a single rocket?",
+    "answer": "What is SpaceX?",
+    "points": 75,
+    "tag": "science"
+  },
+  {
+    "clue": "This space agency has been set to launch the most powerful rocket in the world",
+    "answer": "What is NASA?",
+    "points": 100,
+    "tag": "science"
+  },
+  {
+    "clue": "Indian Council of Medical Research and Bharat Biotech join hands for development of?",
+    "answer": "What is covaxin?",
+    "points": 100,
+    "tag": "science"
+  },
+  {
+    "clue": "The technology helps to control the plants using smart phone applications.",
+    "answer": "What is Robo plant technology?",
+    "points": 100,
+    "tag": "science"
+  },
+  {
+    "clue": "The new Blockchain-based payment platform of the National Payments Corporation of India (NPCI)",
+    "answer": "What is Vajra?",
+    "points": 100,
+    "tag": "science"
+  },
+  {
+    "clue": "____ city will play host to the 2022 Common Wealth Games?",
+    "answer": "What is Birmigham?",
+    "points": 5,
+    "tag": "sports"
+  },
+  {
+    "clue": "A top swimmer who clinched five gold medals in the Khelo India Youth Games belongs to which state?",
+    "answer": "What is Assam?",
+    "points": 5,
+    "tag": "sports"
+  },
+  {
+    "clue": "____ chess player won the title of the Tata Steel Masters chess tournament",
+    "answer": "Who is Fabiano Caruana?",
+    "points": 25,
+    "tag": "sports"
+  },
+  {
+    "clue": "is the state wheretThe 36th Indian National Games in the year 2021 will be held",
+    "answer": "Where is Goa?",
+    "points": 25,
+    "tag": "sports"
+  },
+  {
+    "clue": "____ was named as the 2019 Rising Star of the Year in women category by the International Hockey Federation (FIH)?",
+    "answer": "Who is Lalremsiami?",
+    "points": 50,
+    "tag": "sports"
+  },
+  {
+    "clue": "Which state plays host to the first-ever Khelo India University Games?",
+    "answer": "Where is Oddisha?",
+    "points": 50,
+    "tag": "sports"
+  },
+  {
+    "clue": "seventh bowler in the world and second England bowler to clinch 500 wickets in Test Cricket?",
+    "answer": "Who is Stuart Broad?",
+    "points": 75,
+    "tag": "sports"
+  },
+  {
+    "clue": "Governing body of Sport has approved USD 1.5 billion worth Covid-19 Relief Plan to support its community?",
+    "answer": "What is FIFA?",
+    "points": 75,
+    "tag": "sports"
+  },
+  {
+    "clue": "Country is set to host the 2023 FIFA World Cup for women?",
+    "answer": "What is AUSTRALIA and NEWZELAD?",
+    "points": 100,
+    "tag": "sports"
+  },
+  {
+    "clue": "Indian Badminton star is to launch the series of Fit India interactive sessions called Fit India Talks?",
+    "answer": "Who is P V Sindhu?",
+    "points": 100,
+    "tag": "sports"
+  },
+  {
+    "clue": "An Indian player was recently named player of the Year for 2019 by the International Hockey Federation (FIH)?",
+    "answer": "Who is Manpreet Singh?",
+    "points": 100,
+    "tag": "sports"
+  },
+  {
+    "clue": "He is an Indian player who was recently named Player of the Year for 2019 by the International Hockey Federation (FIH)?",
+    "answer": "Who is Satish Kummar?",
+    "points": 100,
+    "tag": "sports"
+  },
+  {
+    "clue": "____ first private space company to send astronauts into space",
+    "answer": "Who is SpaceX?",
+    "points": 5,
+    "tag": "Technology"
+  },
+  {
+    "clue": "___is the name of the certification system that allows people who have been vaccinated against Covid-19 to access certain facilities",
+    "answer": "What is Vaccine Passport?",
+    "points": 5,
+    "tag": "Technology"
+  },
+  {
+    "clue": "____ is the name of the farthest gamma ray emitting galaxy that has been discovered recently?",
+    "answer": "What is Narrow-Line Seyfert 1?",
+    "points": 25,
+    "tag": "Technology"
+  },
+  {
+    "clue": "____ is the first country to have captured and released the audio from Mars?",
+    "answer": "Who is USA?",
+    "points": 25,
+    "tag": "Technology"
+  },
+  {
+    "clue": "____ Technology company has partnered with Prasar Bharati for AI enabled Independence Day celebration?",
+    "answer": "Who is Google?",
+    "points": 50,
+    "tag": "Technology"
+  },
+  {
+    "clue": "____ is the institution that has recently developed largest ever Solar tree in India?",
+    "answer": "Who is CSIR?",
+    "points": 50,
+    "tag": "Technology"
+  },
+  {
+    "clue": "Which institution has developed an online one minute game to create awareness about Covid 19?",
+    "answer": "What is IIT Madras?",
+    "points": 75,
+    "tag": "Technology"
+  },
+  {
+    "clue": "_____ technology company has launched a new Small and medium businesses (SMB) guide in India?",
+    "answer": "What is Facebook?",
+    "points": 75,
+    "tag": "Technology"
+  },
+  {
+    "clue": "social media platform has launched a new feature called Fleets in India?",
+    "answer": "What is Twitter?",
+    "points": 75,
+    "tag": "Technology"
+  },
+  {
+    "clue": "is the name of the free video-conferencing application launched by Reliance Jio?",
+    "answer": "What is Jio Meet?",
+    "points": 100,
+    "tag": "Technology"
+  },
+  {
+    "clue": "____ Indian organisation demonstrated Free space quantum communication for the first time?",
+    "answer": "What is ISRO?",
+    "points": 100,
+    "tag": "Technology"
+  }
+]

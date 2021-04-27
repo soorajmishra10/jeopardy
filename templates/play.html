@@ -1,0 +1,824 @@
+<!doctype html>
+{% load static %}
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Jeopardy</title>
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <link href="{% static 'css/global.css' %}" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark pb-2">
+            <div class="col-lg-12 px-4">
+                <a class="navbar-brand float-left" href="home.html">
+                    <img src="{% static 'img/logo.png' %}" alt="Jeopardy" width="30px" height="30px"
+                        class="mr-3">Jeopardy
+                </a>
+                <a class="btn btn-outline-success my-2 my-sm-0 float-right" id="logout"
+                    href="{% url 'game:logout_view' %}">
+                    Logout
+                </a>
+
+                <span class="clearfix"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="flex-shrink-0 mt-3 mx-0 mb-0 p-0">
+        <div class="container-fluid w-100 m-0 p-0">
+
+            <div class="col-lg-4 col-md-4 m-0 p-5 float-left">
+
+                <div class="alert alert-info text-center my-4 px-1" role="alert">
+                    <h1 id="timer">00:00</h1>
+                </div>
+
+                <br>
+
+                <div class="d-none" id="sidebar-scoreboard">
+                    <h2>Scoreboard</h2>
+                    <br>
+                    <table class="table m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Player</th>
+                                <th scope="col">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-small" id="sidebar-scoreboard-tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-8 m-0 float-right" id="question-box">
+                <div>
+                    <br>
+
+                    <div class="alert alert-success text-small col-lg-6 col-md-6" role="alert">
+                        <strong>Logged In As:</strong>
+                        <span id="player-name">{{ username }}</span>
+                    </div>
+
+                    <br>
+
+                    <span class="d-none" id="question-box-span">
+
+                        <h2>Question</h2>
+
+                        <br>
+
+                        <span class="mw-100 w-100">
+                            <span class="col-lg-6 m-0 p-0 float-left">
+                                <strong>Room Code:</strong> <span id="room-code">{{ room_code }}</span>
+                            </span>
+                            <span class="col-lg-6 m-0 p-0 text-right float-right">
+                                <strong>Category:</strong> <span id="question-category"></span> &raquo;
+                                <strong>Point:</strong> <span id="question-point"></span>
+                            </span>
+                            <span class="clearfix"></span>
+                        </span>
+
+                        <span class="clearfix"></span>
+
+                        <hr>
+                        <br>
+
+                        <input type="hidden" value="" id="question-db-id">
+
+                        <h3 id="question-clue" class="text-success text-justify"></h3>
+
+                        <div>
+                            <div class="form-group">
+                                <label for="answer">&nbsp;
+                                </label>
+                                <input type="text" class="form-control form-control-lg px-3" id="answer"
+                                    placeholder="Your answer">
+                            </div>
+                            <div class="mw-100 w-100 mt-5 text-right">
+                                <button type="button" class="btn btn-outline-success btn-lg my-3" id="question-submit">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="modal" tabindex="-1" data-keyboard="false" data-backdrop="static" id="question-modal">
+        <div class="modal-dialog" style="min-width: 700px !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Question</h5>
+                </div>
+                <div class="modal-body py-5" style="padding-left: 10%;">
+                    <div class="radio">
+                        <label class="radio-inline w-25">
+                            <strong>General News</strong>
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="gn_5">&nbsp;5
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="gn_25">&nbsp;25
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="gn_50">&nbsp;50
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="gn_75">&nbsp;75
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="gn_100">&nbsp;100
+                        </label>
+                    </div>
+                    <br>
+                    <div class="radio">
+                        <label class="radio-inline w-25">
+                            <strong>Entertainment</strong>
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="et_5">&nbsp;5
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="et_25">&nbsp;25
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="et_50">&nbsp;50
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="et_75">&nbsp;75
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="et_100">&nbsp;100
+                        </label>
+                    </div>
+                    <br>
+                    <div class="radio">
+                        <label class="radio-inline w-25">
+                            <strong>Sports</strong>
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="sp_5">&nbsp;5
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="sp_25">&nbsp;25
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="sp_50">&nbsp;50
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="sp_75">&nbsp;75
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="sp_100">&nbsp;100
+                        </label>
+                    </div>
+                    <br>
+                    <div class="radio">
+                        <label class="radio-inline w-25">
+                            <strong>Technology</strong>
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="tc_5">&nbsp;5
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="tc_25">&nbsp;25
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="tc_50">&nbsp;50
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="tc_75">&nbsp;75
+                        </label>
+                        <label class="radio-inline mr-5">
+                            <input type="radio" name="question-id" value="tc_100">&nbsp;100
+                        </label>
+                    </div>
+                    <br>
+
+                    <div class="alert alert-danger mx-4 mt-3 text-center d-none" id="no-question-alert" role="alert">
+                        No question selected. Please select a question.
+                    </div>
+
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" id="question-modal-btn">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" data-keyboard="false" data-backdrop="static" id="score-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="score-modal-title">Final Score</h5>
+                </div>
+                <div class="modal-body px-5 pt-5 pb-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Player</th>
+                                <th scope="col">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="score-modal-tbody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer d-none" id="score-modal-footer">
+                    <button type="button" class="btn btn-outline-primary" id="score-modal-btn">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" data-keyboard="false" data-backdrop="static" id="lobby-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Lobby</h5>
+                </div>
+                <div class="modal-body px-5 pt-5 pb-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Player</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lobby-modal-tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                {% if username == room_host %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" id="lobby-modal-btn">Start Game</button>
+                </div>
+                {% else %}
+                <div class="alert alert-info mx-4 my-3 text-center" role="alert">Waiting for host to start the game.
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" data-keyboard="false" data-backdrop="static" id="general-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                </div>
+                <div class="modal-body px-5 pt-4 pb-3">
+                    <p id="general-modal-body-p"></p>
+                </div>
+                <div class="modal-footer">
+                    &nbsp;
+                    <!-- <button type="button" class="btn btn-outline-primary" id="general-modal-btn">Okay</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto py-3 px-5 web-footer">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Jeopardy 2021</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static "js/jquery.slim.min.js" %}"><\/script>')</script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <script>
+        $(function () {
+            window.onbeforeunload = function () {
+                return "Please, do not refresh the page.";
+            }
+
+            // $("#question-modal").modal("show");
+            // $("#score-modal").modal("show");
+            $("#lobby-modal").modal("show");
+            // $("#general-modal").modal("show");
+
+            var socket = new WebSocket('ws://' + window.location.host + '/ws/game/play/{{ room_code }}');
+
+            var q_entertainment = [];
+            var q_technology = [];
+            var q_sports = [];
+            var q_general_news = [];
+            var q_count = 0;
+            var q_selected_category = "";
+            var q_selected_index = -1;
+            var q_selected_point = -1;
+            var q_timestamp = -1;
+
+            var currentUserDetail = {};
+            var turnUserDetail = {};
+
+            var timerInterval = null;
+
+            socket.onmessage = function (e) {
+                console.log("message", e)
+                var gameDataMsg = JSON.parse(e.data);
+
+                if (gameDataMsg.message == "onlineUsersList") {
+                    console.log(gameDataMsg);
+
+                    var userList = gameDataMsg.room_users_dict.room_users;
+                    console.log(userList);
+
+                    var tbody = $("#lobby-modal-tbody");
+                    var tbodyText = "";
+
+                    for (var i = 0; i < userList.length; ++i) {
+                        // 0: {room_user: "soorajmishra10@gmail.com", score: 0, status: true}
+
+                        tbodyText += `<tr>
+                            <th scope="row">${userList[i].room_user}</th>
+                            <td>${userList[i].status == true ? "Online" : "Offline"}</td>
+                        </tr>`;
+                    }
+
+                    tbody.html(tbodyText);
+                }
+                else if (gameDataMsg.message == "gameStartedMessage") {
+                    /*
+                        message: "gameStartedMessage"
+                        q_count: 0
+                        questions: {general_news: .., entertainment: .., sports: .., technology: ..}
+                        room_users_dict:
+                            room_code: "test_room_01"
+                            room_users: Array(2)
+                                0: {room_user: "soorajmishra10@gmail.com", score: 0, status: true, user_id: 0}
+                                1: {room_user: "keshav@gmail.com", score: 0, status: true, user_id: 2}
+                                length: 2
+                        turn: 0
+                    */
+
+                    console.log(gameDataMsg);
+
+                    q_general_news = gameDataMsg.questions.general_news;
+                    q_entertainment = gameDataMsg.questions.entertainment;
+                    q_sports = gameDataMsg.questions.sports;
+                    q_technology = gameDataMsg.questions.technology;
+
+                    var turn = gameDataMsg.turn;
+                    var userList = gameDataMsg.room_users_dict.room_users;
+                    var currentUser = '{{ username }}';
+
+                    for (var i = 0; i < userList.length; ++i) {
+                        if (turn == userList[i].user_id) {
+                            turnUserDetail = userList[i];
+                        }
+
+                        if (currentUser == userList[i].room_user) {
+                            currentUserDetail = userList[i];
+                        }
+                    }
+
+                    console.log(currentUserDetail);
+                    console.log(turnUserDetail);
+
+                    $("#lobby-modal").modal("hide");
+
+                    if (turnUserDetail.user_id === currentUserDetail.user_id) {
+                        $("#question-modal").modal("show");
+                    } else {
+                        $("#general-modal-body-p").html(
+                            `<strong>${turnUserDetail.room_user}</strong> is selecting the question.`
+                        );
+                        $("#general-modal").modal("show");
+                    }
+                }
+                else if (gameDataMsg.message == "nextQuestionReplyMsg") {
+                    // {question_no: 13, question: .., category: "general", points: 5}
+
+                    var q_cat = gameDataMsg.q_category;
+                    var q_idx = gameDataMsg.q_index;
+                    var q_pnt = gameDataMsg.q_points;
+                    var q_dict = {};
+                    q_timestamp = gameDataMsg.start_time;
+                    q_count = gameDataMsg.q_count
+
+                    var radioValue = "";
+
+                    switch (q_cat) {
+                        case "technology":
+                            q_dict = q_technology[q_idx];
+                            radioValue = "tc_";
+                            break;
+                        case "entertainment":
+                            q_dict = q_entertainment[q_idx];
+                            radioValue = "et_";
+                            break;
+                        case "sports":
+                            q_dict = q_sports[q_idx];
+                            radioValue = "sp_";
+                            break;
+                        case "general_news":
+                            q_dict = q_general_news[q_idx];
+                            radioValue = "gn_";
+                            break;
+                    }
+
+                    radioValue += q_pnt;
+
+                    $(`input[value='${radioValue}']`).prop("disabled", true);
+                    $("#question-submit").prop("disabled", false);
+
+                    $("#question-category").html(q_cat);
+                    $("#question-point").html(q_pnt);
+                    $("#question-clue").html(q_dict.question);
+                    $("#question-db-id").val(q_dict.question_no);
+
+                    var userList = gameDataMsg.room_users_dict.room_users;
+                    console.log(userList);
+
+                    var tbody = $("#sidebar-scoreboard-tbody");
+                    var tbodyText = "";
+
+                    for (var i = 0; i < userList.length; ++i) {
+                        tbodyText += `<tr>
+                            <th scope="row">${userList[i].room_user}</th>
+                            <td>${userList[i].score}</td>
+                        </tr>`;
+                    }
+
+                    tbody.html(tbodyText);
+
+                    $("#question-box-span").removeClass("d-none");
+                    $("#sidebar-scoreboard").removeClass("d-none");
+
+                    if (turnUserDetail.user_id === currentUserDetail.user_id) {
+                        $("#question-modal").modal("hide");
+                    } else {
+                        $("#general-modal").modal("hide");
+                    }
+
+                    var timerVal = 45;
+
+                    timerInterval = setInterval(function () {
+                        timerVal -= 1;
+
+                        var ss = timerVal < 10 ? '0' + timerVal : '' + timerVal;
+
+                        $("#timer").html("00:" + ss);
+
+                        if (timerVal == 0) {
+                            clearInterval(timerInterval);
+
+                            // TODO: Timer expiry event.
+                            var timerExpiredMessage = {
+                                "message": "timerExpiredMessage",
+                                "q_category": q_selected_category,
+                                "q_points": q_selected_point,
+                                "q_index": q_selected_index,
+                                "q_count": q_count
+                            }
+
+                            socket.send(JSON.stringify(timerExpiredMessage));
+                        }
+                    }, 1001);
+                }
+                else if (gameDataMsg.message == "roundOverMsg") {
+                    clearInterval(timerInterval);
+                    q_count = gameDataMsg.q_count
+                    if (q_count < 20) {
+                        var userList = gameDataMsg.room_users_dict.room_users;
+                        console.log(userList);
+
+                        var tbody = $("#sidebar-scoreboard-tbody");
+                        var tbodyText = "";
+                        var scoreModalText = "";
+
+                        for (var i = 0; i < userList.length; ++i) {
+                            tbodyText += `<tr>
+                                <th scope="row">${userList[i].room_user}</th>
+                                <td>${userList[i].score}</td>
+                            </tr>`;
+
+                            var flag = gameDataMsg.round_winner == userList[i].room_user;
+
+                            scoreModalText += `<tr ${flag ? 'class="text-primary"' : ''}>
+                                <th scope="row">${userList[i].room_user}</th>
+                                <td>${userList[i].score}</td>
+                            </tr>`;
+                        }
+
+                        tbody.html(tbodyText);
+
+                        var scoreModalTitle = $("#score-modal-title");
+                        var scoreModalTbody = $("#score-modal-tbody");
+
+                        scoreModalTitle.html("Current Scores");
+                        scoreModalTbody.html(scoreModalText);
+
+                        $("#score-modal").modal("show");
+
+                        var tempInterval = setInterval(function () {
+                            clearInterval(tempInterval);
+
+                            var turn = gameDataMsg.turn;
+                            var userList = gameDataMsg.room_users_dict.room_users;
+                            var currentUser = '{{ username }}';
+
+                            for (var i = 0; i < userList.length; ++i) {
+                                if (turn == userList[i].user_id) {
+                                    turnUserDetail = userList[i];
+                                }
+
+                                if (currentUser == userList[i].room_user) {
+                                    currentUserDetail = userList[i];
+                                }
+                            }
+
+                            console.log(currentUserDetail);
+                            console.log(turnUserDetail);
+
+                            $("#score-modal").modal("hide");
+
+                            if (turnUserDetail.user_id === currentUserDetail.user_id) {
+                                $("#question-modal").modal("show");
+                            } else {
+                                $("#general-modal-body-p").html(
+                                    `<strong>${turnUserDetail.room_user}</strong> is selecting the question.`
+                                );
+                                $("#general-modal").modal("show");
+                            }
+                        }, 2500);
+                    }
+                    else {
+                        var turn = turnUserDetail.user_id
+                        if (currentUserDetail.user_id == turn) {
+                            var gameOverMsg = {
+                                "message": "gameOverMsg",
+                            }
+                            socket.send(JSON.stringify(gameOverMsg));
+                        }
+                    }
+                }
+                else if (gameDataMsg.message == "timerExpiredMessage") {
+                    // TODO : add time expire after-logic
+                    q_count = gameDataMsg.q_count
+                    if (q_count < 20) {
+                        var userList = gameDataMsg.room_users_dict.room_users;
+                        console.log(userList);
+
+                        var tbody = $("#sidebar-scoreboard-tbody");
+                        var tbodyText = "";
+                        var scoreModalText = "";
+
+                        for (var i = 0; i < userList.length; ++i) {
+                            tbodyText += `<tr>
+                                <th scope="row">${userList[i].room_user}</th>
+                                <td>${userList[i].score}</td>
+                            </tr>`;
+
+                            var flag = gameDataMsg.round_winner == userList[i].room_user;
+
+                            scoreModalText += `<tr ${flag ? 'class="text-primary"' : ''}>
+                                <th scope="row">${userList[i].room_user}</th>
+                                <td>${userList[i].score}</td>
+                            </tr>`;
+                        }
+
+                        tbody.html(tbodyText);
+
+                        var scoreModalTitle = $("#score-modal-title");
+                        var scoreModalTbody = $("#score-modal-tbody");
+
+                        scoreModalTitle.html("Current Scores");
+                        scoreModalTbody.html(scoreModalText);
+
+                        $("#score-modal").modal("show");
+
+                        var tempInterval = setInterval(function () {
+                            clearInterval(tempInterval);
+
+                            var turn = gameDataMsg.turn;
+                            var userList = gameDataMsg.room_users_dict.room_users;
+                            var currentUser = '{{ username }}';
+
+                            for (var i = 0; i < userList.length; ++i) {
+                                if (turn == userList[i].user_id) {
+                                    turnUserDetail = userList[i];
+                                }
+
+                                if (currentUser == userList[i].room_user) {
+                                    currentUserDetail = userList[i];
+                                }
+                            }
+
+                            console.log(currentUserDetail);
+                            console.log(turnUserDetail);
+
+                            $("#score-modal").modal("hide");
+
+                            if (turnUserDetail.user_id === currentUserDetail.user_id) {
+                                $("#question-modal").modal("show");
+                            } else {
+                                $("#general-modal-body-p").html(
+                                    `<strong>${turnUserDetail.room_user}</strong> is selecting the question.`
+                                );
+                                $("#general-modal").modal("show");
+                            }
+                        }, 2500);
+                    }
+                    else {
+                        var turn = turnUserDetail.user_id
+                        if (currentUserDetail.user_id == turn) {
+                            var gameOverMsg = {
+                                "message": "gameOverMsg",
+                            }
+                            socket.send(JSON.stringify(gameOverMsg));
+                        }
+                    }
+                }
+                else if (gameDataMsg.message == "gameOverMsg") {
+                    // TODO : add Game Over logic
+                    var userList = gameDataMsg.room_users_dict.room_users;
+                    console.log(userList);
+
+                    $("#question-box-span").addClass("d-none");
+                    $("#sidebar-scoreboard").addClass("d-none");
+
+                    var scoreModalText = "";
+                    var max = -1;
+
+                    for (var i = 0; i < userList.length; ++i) {
+                        if (userList[i].score > max) {
+                            max = userList[i].score;
+                        }
+                    }
+
+                    for (var i = 0; i < userList.length; ++i) {
+                        var flag = userList[i].score == max;
+
+                        scoreModalText += `<tr ${flag ? 'class="text-success"' : ''}>
+                            <th scope="row">${userList[i].room_user}</th>
+                            <td>${userList[i].score}</td>
+                        </tr>`;
+                    }
+
+                    var scoreModalTitle = $("#score-modal-title");
+                    var scoreModalTbody = $("#score-modal-tbody");
+
+                    scoreModalTitle.html("Final Scores");
+                    scoreModalTbody.html(scoreModalText);
+
+                    $("#score-modal-footer").removeClass("d-none");
+                    $("#score-modal").modal("show");
+                }
+            }
+
+            socket.onopen = function (e) {
+                console.log('WebSockets connection created.', e);
+            };
+
+            socket.onclose = function (e) {
+                console.log("close", e)
+            }
+
+            socket.onerror = function (e) {
+                console.log("error", e)
+            }
+
+            $("#lobby-modal-btn").click(function () {
+                var gameStartMsg = {
+                    'message': "gameStartMessage",
+                    'q_count': 0
+                };
+                socket.send(JSON.stringify(gameStartMsg));
+            });
+
+            $("#question-modal-btn").click(function () {
+                var selectedRadio = $("input[name='question-id']:checked");
+                var value = selectedRadio.val();
+
+                if (!value) {
+                    $("#no-question-alert").removeClass("d-none");
+                }
+                else {
+                    selectedRadio.prop("checked", false);
+                    selectedRadio.prop("disabled", true);
+
+                    var arr = String(value).split("_");
+
+                    q_selected_point = parseInt(arr[1]);
+                    q_selected_index = Math.floor(q_selected_point / 25);
+
+                    switch (arr[0]) {
+                        case "tc":
+                            q_selected_category = "technology";
+                            break;
+                        case "et":
+                            q_selected_category = "entertainment";
+                            break;
+                        case "sp":
+                            q_selected_category = "sports";
+                            break;
+                        case "gn":
+                            q_selected_category = "general_news";
+                            break;
+                    }
+
+                    // ++q_count;
+
+                    var nextQuestionRequestMsg = {
+                        "message": "nextQuestionRequestMsg",
+                        "q_category": q_selected_category,
+                        "q_points": q_selected_point,
+                        "q_index": q_selected_index,
+                        "q_count": q_count
+                    }
+
+                    socket.send(JSON.stringify(nextQuestionRequestMsg));
+                }
+            });
+
+            $("#question-submit").click(function () {
+                var q_id = $("#question-db-id").val();
+                var q_txt = $("#question-clue").html();
+                var q_ans = $("#answer").val();
+                var q_cat = $("#question-category").html();
+                var q_pnt = $("#question-point").html();
+                var timestamp = q_timestamp;
+                var room_code = $("#room-code").html();
+                var username = $("#player-name").html();
+                var turn = turnUserDetail.user_id;
+
+                $("#answer").val("");
+                $("#question-submit").prop("disabled", true);
+
+                var answerMessage = {
+                    "message": "answerMessage",
+                    "q_id": q_id,
+                    "q_txt": q_txt,
+                    "q_ans": q_ans,
+                    "q_cat": q_cat,
+                    "q_pnt": q_pnt,
+                    "timestamp": timestamp,
+                    "room_code": room_code,
+                    "username": username,
+                    "turn": turn,
+                    "q_count": q_count
+                };
+                socket.send(JSON.stringify(answerMessage));
+            });
+
+            $("#score-modal-btn").click(function () {
+                window.location.replace(`{% url 'game:home_view' %}`);
+            });
+        });
+    </script>
+</body>
+
+</html>

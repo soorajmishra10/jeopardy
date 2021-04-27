@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        
+        <title>Jeopardy</title>
+
+        <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}"/>
+
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/global.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        
+        <div class="container text-center pt-5">
+            <img alt="ACE OJ" src="{% static 'img/favicon.png' %}" height="96" width="96">
+            
+            <br><br>
+            
+            <h1>Welcome&nbsp;to&nbsp;Jeopardy</h1>
+            
+            <br>
+            
+            <p class="lead">
+                Join Jeopardy today and take your quizing knowledge to the next level.
+                Play Jeopardy and learn about the current affairs in Sports, Technologies, Movies and General News. 
+            </p>
+            
+            <br>
+            
+            <div class="mb-5">
+                <img alt="news" src="{% static 'img/news-96.png' %}" height="96" width="96" class="mr-3">
+                <img alt="sports" src="{% static 'img/sports-96.png' %}" height="96" width="96" class="mr-3">
+                <img alt="movie" src="{% static 'img/movie-96.png' %}" height="96" width="96" class="mr-3">
+                <img alt="tech" src="{% static 'img/tech-96.png' %}" height="96" width="96">
+            </div>
+            
+            <br>
+            
+            <p>
+              <a href="{% url 'game:login_view' %}" class="btn btn-outline-primary btn-lg my-2 mr-4">Log In</a>
+              <a href="{% url 'game:register_view' %}" class="btn btn-outline-primary btn-lg my-2">Sign Up</a>
+            </p>
+        </div>
+    
+        <div class="text-center text-muted mt-5 pb-4 px-2">
+            <small>
+                &nbsp;Copyright&nbsp;&copy;&nbsp;Jeopardy&nbsp;2021
+                &nbsp; | &nbsp;<a href='javascript:void(0);'>Privacy&nbsp;Policy</a>
+                &nbsp; | &nbsp;<a href='javascript:void(0);'>Terms&nbsp;&amp;&nbsp;Conditions</a>
+            </small>
+        </div>
+        
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+    </body>
+    </html>

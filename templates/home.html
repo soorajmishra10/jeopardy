@@ -1,0 +1,169 @@
+<!doctype html>
+{% load static %}
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Jeopardy</title>
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <link href="{% static 'css/global.css' %}" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark pb-2">
+            <a class="navbar-brand ml-4" href="home.html">
+                <img src="{% static 'img/logo.png' %}" alt="Jeopardy" width="30px" height="30px" class="mr-3">Jeopardy
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nbc" aria-controls="nbc"
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse" id="nbc">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link ml-4" href="#" data-toggle="modal" data-target="#rules-mpdal">Game Rules</a>
+                    </li>
+                </ul>
+            </div>
+
+            <a class="btn btn-outline-success my-2 my-sm-0 mr-4 float-right" id="logout"
+                href="{% url 'game:logout_view' %}">Logout</a>
+
+            <span class="clearfix"></span>
+        </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="flex-shrink-0 mt-3">
+        <div class="container-fluid w-100 m-0" style="padding-left: 10%; padding-right: 10%;">
+            <div>
+                <br><br><br><br>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-light" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mw-50 w-50 m-0 p-5 float-left" style="border-right: 1px solid #bdbdbd;">
+                <form method="POST" action="{% url 'game:home_view' %}">
+                    {% csrf_token %}
+                    <h2>Create Game</h1>
+                        <br>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="email" class="form-control" id="username" aria-describedby="emailHelp"
+                                value="{{ username }}" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="room">Room Code</label>
+                            <input type="text" class="form-control" id="room" name="room_code" required />
+                            <input type="hidden" name="event" value="Create">
+                        </div>
+                        <div class="form-group">
+                            <label for="room_size">Room Size</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="room_size">
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Create</button>
+                </form>
+            </div>
+            <div class="mw-50 w-50 m-0 p-5 float-right">
+                <form method="POST" action="{% url 'game:home_view' %}">
+                    {% csrf_token %}
+                    <h2>Join Game</h1>
+                        <br>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="email" class="form-control" id="username" aria-describedby="emailHelp"
+                                value="{{ username }}" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="room">Room Code</label>
+                            <input type="text" class="form-control" id="room" name="room_code" required />
+                            <input type="hidden" name="event" value="Join">
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Join</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 px-5 web-footer">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Jeopardy 2021</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="rules-mpdal" tabindex="-1" aria-labelledby="rules-modal-label" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 700px !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rules-modal-label">Game rules</h5>
+                </div>
+                <div class="modal-body py-0 pl-3 pr-5">
+                    <p class="my-3 mx-0" id="rules">
+                        <ul class="text-justify">
+                            <li>You will be given different clues based on different categories having some points, And your task is to type correct answers as quickly as possible.<strong>The twist here is to give the answers in "Question Format."</strong></li>
+                            <li>
+                                For example :
+                                <ul>
+                                    <li>If the correct answer is a name of person like Mahatma Gandhi, you should write "Who is Mahatma Gandhi?"</li>
+                                    <li>If the correct answer is a thing like Helicopter, you should write "What is Helicopter?"</li>
+                                    <li>If the correct answer is a place(Continent/Country/State/District etc) like India, you should write "Where is India?"</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static "js/jquery.slim.min.js" %}"><\/script>')</script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
